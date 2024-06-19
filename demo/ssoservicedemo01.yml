@@ -1,0 +1,19 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+version: '3.8'
+services:
+  ssoservicedemo01-app:
+    image: ongdo2004/ssoservicedemo01:1.0
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak.online:9080/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=ssodemoservice01
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=ssodemoservice01
+      - JHIPSTER_SLEEP=0 # gives time for other services to boot before the application
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - keycloak.online:192.168.135.133

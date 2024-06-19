@@ -1,0 +1,73 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+version: '3.8'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:19.0.1
+    command: ['start-dev --import-realm']
+    volumes:
+      - ./keycloak/realm-config:/opt/keycloak/data/import
+    environment:
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+#      - KC_DB=dev-file
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_FEATURES=scripts
+      - KC_HTTP_PORT=9080
+      - KC_HTTPS_PORT=9443
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 9080:9080
+      - 9443:9443
+    depends_on:
+      - postgres
+      
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+
+  ssoservicedemo01-app:
+    image: ongdo2004/ssoservicedemo01:1.0
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak.online:9080/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=ssodemoservice01
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=ssodemoservice01
+      - JHIPSTER_SLEEP=20 # gives time for other services to boot before the application
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - keycloak.online:192.168.135.133
+    depends_on:
+      - keycloak
+      
+  ssoservicedemo02-app:
+    image: ongdo2004/ssoservicedemo02:1.0
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak.online:9080/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=ssodemoservice02
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=ssodemoservice02
+      - JHIPSTER_SLEEP=20 # gives time for other services to boot before the application
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 8081:8080
+    extra_hosts:
+      - keycloak.online:192.168.135.133
+    depends_on:
+      - keycloak
