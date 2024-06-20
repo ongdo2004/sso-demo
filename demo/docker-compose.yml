@@ -24,15 +24,6 @@ services:
       - 9443:9443
     depends_on:
       - postgres
-      
-  postgres:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
-    volumes:
-      - ./postgres/postgres_data:/var/lib/postgresql/data
 
   ssoservicedemo01-app:
     image: ongdo2004/ssoservicedemo01:1.0

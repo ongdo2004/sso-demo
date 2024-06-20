@@ -124,8 +124,8 @@ spring:
             issuer-uri: http://localhost:9080/realms/jhipster
         registration:
           oidc:
-            client-id: web_app
-            client-secret: web_app
+            client-id: web_app_dev
+            client-secret: web_app_dev
             scope: openid, profile, email, offline_access # last one for refresh tokens
 
 server:
