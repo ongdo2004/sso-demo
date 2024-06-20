@@ -22,8 +22,6 @@ services:
     ports:
       - 9080:9080
       - 9443:9443
-    depends_on:
-      - postgres
 
   ssoservicedemo01-app:
     image: ongdo2004/ssoservicedemo01:1.0
@@ -34,13 +32,13 @@ services:
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak.online:9080/realms/jhipster
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=ssodemoservice01
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=ssodemoservice01
-      - JHIPSTER_SLEEP=20 # gives time for other services to boot before the application
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
       - 8080:8080
     extra_hosts:
-      - keycloak.online:192.168.135.133
+      - keycloak.online:192.168.31.239
     depends_on:
       - keycloak
       
@@ -53,12 +51,12 @@ services:
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak.online:9080/realms/jhipster
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=ssodemoservice02
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=ssodemoservice02
-      - JHIPSTER_SLEEP=20 # gives time for other services to boot before the application
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
       - 8081:8080
     extra_hosts:
-      - keycloak.online:192.168.135.133
+      - keycloak.online:192.168.31.239
     depends_on:
       - keycloak
