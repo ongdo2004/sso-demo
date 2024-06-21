@@ -42,13 +42,11 @@ Thank to: https://www.keycloak.org/
 		docker-compose -f postgres.yml up -d
         docker-compose up -d
 
-        Use code with caution.
-
     4. Access Demo Sites:
         The demo sites will be available at the following addresses:
             http://ssodemoservice01:8080/: Represents service 01.
             http://ssodemoservice02:8081/: Represents service 02.
-            http://keycloak.online:9080: Keycloak administration page.
+            http://keycloak.online:9080/: Keycloak administration page.
 
-    For detailed instructions, follow the guide at: [link to guide].
-    Or watch the demo video at: [link to video].
+    For detailed instructions, follow the guide at: https://github.com/ongdo2004/sso-demo.git.
+    Or watch the demo video at: https://youtu.be/jZX6D6Gmn8E.

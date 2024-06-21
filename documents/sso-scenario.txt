@@ -1,0 +1,40 @@
+DEMO SSO
+
+-------------------------------------------------------------------
+Scenario 01: Login SSO with username/pwd
+
+1. Browser to http://keycloak.online:9080/ and create a new user 
+2. Browse to http://ssodemoservice01:8080 and login 
+3. At login-page, login with the new username/pwd
+4. Browse to http://ssodemoservice02:8081 and login
+5. Browser to http://keycloak.online:9080/ and check user session
+
+-------------------------------------------------------------------
+Scenario 02: Logout
+
+1. Browse to http://ssodemoservice01:8080 and logout
+2. Browse to http://ssodemoservice02:8081 and logout
+3. Browser to http://keycloak.online:9080/ and check user session
+
+-------------------------------------------------------------------
+Scenario 03: Associate with Google account at 1 first-time
+
+1. Browse to http://ssodemoservice01:8080 and login
+2. At login-page, choose "login with google"
+3. Following Google-login instructions
+4. At associating-account-page, login with the username/pwd
+5. Browse to http://ssodemoservice02:8081 and login
+6. Browser to http://keycloak.online:9080/ and check federated account
+
+-------------------------------------------------------------------
+Scenario 04: Login with Google account
+
+0. Logout in both of http://ssodemoservice01:8080 and http://ssodemoservice02:8081
+1. Browse to http://ssodemoservice01:8080 and login
+2. At login-page, choose "login with google"
+3. Following Google-login instructions
+5. Browse to http://ssodemoservice02:8081 and login
+3. Browser to http://keycloak.online:9080/ and check user session
+
+Thank you.
+Thank you again!
